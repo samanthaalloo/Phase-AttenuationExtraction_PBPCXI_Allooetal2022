@@ -33,9 +33,9 @@ def gammacal(filepath, gamma_guess, sod, odd, wavelength, det_voxel):
     # -------------------------------------------------------------------
     # DEFINITIONS
     # THE LINE PROFILE NEEDS TO BE TAKEN SUCH THAT THERE IS EQUAL DISTANCE EITHER SIDE OF THE INTERFACE
-    # filepath: line profile data in CSV format (x and y data needs to be in two separate excel columns)
+    # filepath: line profile data in CSV format (x and y data needs to be in two separate excel columns, no headers)
     # a=vertical shift, b=amplitude, c='bump' height, o=horizontal shift, and l=width of the erf
-    # gammaguess: initial gamma used in phase-retrieval to obtain reconstruction (incorrect)
+    # gammaguess: initial gamma used in phase-retrieval (Paganin type approach) to obtain reconstruction (incorrect)
     # sod: source-to-sample distance [microns]
     # odd: object-to-detector distance [microns]
     # det_voxel: pixel size in detector used for X-ray imaging [microns] (not "pixelsize = det_voxel/M)
@@ -55,7 +55,7 @@ def gammacal(filepath, gamma_guess, sod, odd, wavelength, det_voxel):
 
     beta_recon = (mu_recon_um*wavelength)/(4*math.pi)     # calculate beta from mu
 
-    # if the CT reconstruction is the imaginary component of the refractive index, beta, use this
+    # if the CT reconstruction is the imaginary component of the refractive index, beta, use this:
     #beta_recon = line_profile[:, 1]
     # -------------------------------------------------------------------
     # -------------------------------------------------------------------
@@ -69,7 +69,7 @@ def gammacal(filepath, gamma_guess, sod, odd, wavelength, det_voxel):
     x_0_guess = 0.5*np.max(position_microns)
     print(a_guess,b_guess,c_guess,l_guess,x_0_guess)
 
-    p0 = np.array([a_guess,b_guess,c_guess,x_0_guess,l_guess])
+    p0 = np.array([a_guess,b_guess,c_guess,x_0_guess,l_guess]) # Initial guess array
 
 
     fit_coefficients, covariance = curve_fit(erffunc, position_microns, beta_recon, p0=p0, method='lm') # curve-fitting
@@ -102,13 +102,13 @@ def gammacal(filepath, gamma_guess, sod, odd, wavelength, det_voxel):
     B = fit_coefficients[1]
     l = fit_coefficients[4]
 
-    tau_guess = (odd * wavelength * gammaguess) / (mag * 4 * (math.pi)) # Calculating the tau parameter, which is related to gamma
+    tau_guess = (odd * wavelength * gammaguess) / (mag * 4 * (math.pi)) # calculating the tau parameter, which is related to gamma
     tau_corr = tau_guess +  ((math.sqrt(math.pi)) * l ** 3  * (C) * pix**2) / (4 * B)
     gammacorr = (tau_corr * mag * 4 * (math.pi)) / (odd * wavelength)
 
-    tau_guess = (odd * wavelength * gamma_guess) / (mag * 4 * (math.pi)) # Calculating the tau parameter, which is related to gamma
+    tau_guess = (odd * wavelength * gamma_guess) / (mag * 4 * (math.pi)) # calculating the tau parameter, which is related to gamma
     tau_true = tau_guess +  ((math.sqrt(math.pi)) * l ** 2  * C) / (4 * B)
-    gamma_true = (tau_true * mag * 4 * (math.pi)) / (odd * wavelength) # Calculating the true gamma parameter
+    gamma_true = (tau_true * mag * 4 * (math.pi)) / (odd * wavelength) # calculating the true gamma parameter
 
     print('The True \u03B3 = \u03B4/\u03B2 for the Given Interface is:')
     print(gamma_true)
@@ -116,10 +116,14 @@ def gammacal(filepath, gamma_guess, sod, odd, wavelength, det_voxel):
     # -------------------------------------------------------------------
     # Calculating the Relative Magnitude of Complex Component of Materials Refractive index
     delta_relative = 2*B*gamma_true
+    beta_relative = 2*B
+
+    print('The True Relative \u03B2 for the Given Interface is:')
+    print(beta_relative)
 
     print('The True Relative \u03B4 for the Given Interface is:')
     print(delta_relative)
-    return(fit_coefficients, error, gammacorr, position_microns, beta_recon, delta_relative)
+    return(fit_coefficients, error, gammacorr, position_microns, beta_recon, beta_relative, delta_relative)
 
 ## TEST DATA RUN: (change directory to whereever you have the line profile stored)
 # filepath = r'C:\Users\samja\Documents\PhD Research Work\Error Function Analysis Results\Extension to Lab Data\LP_c.csv'
