@@ -102,10 +102,6 @@ def gammacal(filepath, gamma_guess, sod, odd, wavelength, det_voxel):
     B = fit_coefficients[1]
     l = fit_coefficients[4]
 
-    tau_guess = (odd * wavelength * gammaguess) / (mag * 4 * (math.pi)) # calculating the tau parameter, which is related to gamma
-    tau_corr = tau_guess +  ((math.sqrt(math.pi)) * l ** 3  * (C) * pix**2) / (4 * B)
-    gammacorr = (tau_corr * mag * 4 * (math.pi)) / (odd * wavelength)
-
     tau_guess = (odd * wavelength * gamma_guess) / (mag * 4 * (math.pi)) # calculating the tau parameter, which is related to gamma
     tau_true = tau_guess +  ((math.sqrt(math.pi)) * l ** 2  * C) / (4 * B)
     gamma_true = (tau_true * mag * 4 * (math.pi)) / (odd * wavelength) # calculating the true gamma parameter
@@ -123,7 +119,26 @@ def gammacal(filepath, gamma_guess, sod, odd, wavelength, det_voxel):
 
     print('The True Relative \u03B4 for the Given Interface is:')
     print(delta_relative)
-    return(fit_coefficients, error, gammacorr, position_microns, beta_recon, beta_relative, delta_relative)
+
+    # -------------------------------------------------------------------
+    # Uncertainity Calculation:
+    unc_C = error[2]
+    unc_B = error[1]
+    unc_l = error[3]
+
+    term_C = ((mag * math.pi ** (3 / 2) * l ** 2) / (odd * wavelength * B)) * unc_C
+    term_l = ((2 * mag * math.pi ** (3 / 2) * l * C) / (odd * wavelength * B)) * unc_l
+    term_B = ((mag * math.pi ** (3 / 2) * l ** 2 * C) / (odd * wavelength * B ** 2)) * unc_B
+
+    unc_tot = (term_C ** 2 + term_l ** 2 + term_B ** 2) ** (1 / 2)
+    print('The Uncertainity in \u03B3 is ' + str(unc_tot))
+
+    unc_delta = ((beta_relative * unc_tot) ** 2 + (gamma_true * unc_B) ** 2) ** (1 / 2)
+    print('The Uncertainity in \u03B4 is ' + str(unc_delta))
+
+    print('The Uncertainity in \u03B2 is ' + str(unc_B))
+
+    return(fit_coefficients, error, gamma_true, position_microns, beta_recon, beta_relative, delta_relative)
 
 ## TEST DATA RUN: (change directory to whereever you have the line profile stored)
 # filepath = r'C:\Users\samja\Documents\PhD Research Work\Error Function Analysis Results\Extension to Lab Data\LP_c.csv'
