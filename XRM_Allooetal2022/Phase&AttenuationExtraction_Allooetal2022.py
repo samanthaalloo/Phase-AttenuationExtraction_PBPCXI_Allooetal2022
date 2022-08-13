@@ -65,7 +65,7 @@ def gammacal(filepath, gamma_guess, sod, odd, wavelength, det_voxel):
     a_guess = 0.5*((np.sum(beta_recon[0:int(len(beta_recon) / 4)]) / int(len(beta_recon) / 4)) + (np.sum(beta_recon[int(3 * len(beta_recon) / 4):int(len(beta_recon))]) / int(len(beta_recon) / 4)))  # take the first and last quarter of the line profile, find the average of all elements in each portion, take the sum and then halving
     b_guess = ((np.sum(beta_recon[0:int(len(beta_recon)/4)])/int(len(beta_recon)/4)) - (np.sum(beta_recon[int(3*len(beta_recon)/4):int(len(beta_recon))])/int(len(beta_recon)/4))) # take the first and last quarter of the line profile, find the average of all elements in each portion, and then take the difference
     c_guess = a_guess/10 # typically one order of magnitude less than the absolute value of \beta is suffice
-    l_guess = (np.argmin(beta_recon)-np.argmax(beta_recon))*10
+    l_guess = (np.argmin(beta_recon)-np.argmax(beta_recon))*pix
     x_0_guess = 0.5*np.max(position_microns)
     print(a_guess,b_guess,c_guess,l_guess,x_0_guess)
 
