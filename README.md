@@ -18,3 +18,6 @@ The second function requires 6 input variables:
 Definitions for each of these variables can be found within the script. When using PCXI data collected using a conventional X-ray tube, the wavelength can be replaced with the wavelength of the effective energy of the polychromatic X-ray spectra (typically, 0.5 or 0.33 of the kVp). 
 
 The true value of \gamma = \deta / \beta, as well as the relative \deta and \beta for the interface are printed within the script. A unique value for \deta for each composite material can be determine by establishing a set of linear equations using the definition of \gamma for an interface. Although this isn’t performed directly in the script, it is easy to do, and a further explanation of this is provided in both publications. If you have any further questions on how to do this, please contact S. J. Alloo on samantha.alloo@pg.canterbury.ac.nz. 
+
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fsamanthaalloo%2FPhase-AttenuationExtraction_PBPCXI_Allooetal2022&count_bg=%23C83D81&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Hits&edge_flat=false)](https://hits.seeyoufarm.com)
