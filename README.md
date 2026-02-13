@@ -1,5 +1,4 @@
 # Phase-AttenuationExtraction_PBPCXI_Allooetal2022
-![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.com/samanthaalloo/Phase-AttenuationExtraction_PBPCXI_Allooetal2022)
 This is an automated PB-PCXI algorithm capable of extracting the X-ray attenuation and refraction components of the complex refractive index of distinct materials within an unknown sample.
 
 This script is based off the publication “Alloo, S.J., Paganin, D.M., Morgan, K.S., Gureyev, T.E., Mayo, S.C., Mohammadi, S., Lockie, D., Menk, R.H., Arfelli, F., Zanconati, F., Tromba, G., and Pavlov, K.M. 2022. Tomographic phase and attenuation extraction for a sample composed of unknown materials using x-ray propagation-based phase-contrast imaging. _Optics Letters_, 47(8), pp.1945-1948.”, which is furthermore published in the XRM2022 conference proceedings, where a link to this repository was provided. Please ensure appropriate referencing and acknowledgement is made to this work when you use this script within your own.
