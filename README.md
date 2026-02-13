@@ -1,4 +1,5 @@
 # Phase-AttenuationExtraction_PBPCXI_Allooetal2022
+![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.com/samanthaalloo/Phase-AttenuationExtraction_PBPCXI_Allooetal2022)
 This is an automated PB-PCXI algorithm capable of extracting the X-ray attenuation and refraction components of the complex refractive index of distinct materials within an unknown sample.
 
 This script is based off the publication “Alloo, S.J., Paganin, D.M., Morgan, K.S., Gureyev, T.E., Mayo, S.C., Mohammadi, S., Lockie, D., Menk, R.H., Arfelli, F., Zanconati, F., Tromba, G., and Pavlov, K.M. 2022. Tomographic phase and attenuation extraction for a sample composed of unknown materials using x-ray propagation-based phase-contrast imaging. _Optics Letters_, 47(8), pp.1945-1948.”, which is furthermore published in the XRM2022 conference proceedings, where a link to this repository was provided. Please ensure appropriate referencing and acknowledgement is made to this work when you use this script within your own.
@@ -19,5 +20,3 @@ Definitions for each of these variables can be found within the script. When usi
 
 The true value of \gamma = \deta / \beta, as well as the relative \deta and \beta for the interface are printed within the script. A unique value for \deta for each composite material can be determine by establishing a set of linear equations using the definition of \gamma for an interface. Although this isn’t performed directly in the script, it is easy to do, and a further explanation of this is provided in both publications. If you have any further questions on how to do this, please contact S. J. Alloo on samantha.alloo@pg.canterbury.ac.nz. 
 
-
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fsamanthaalloo%2FPhase-AttenuationExtraction_PBPCXI_Allooetal2022%2Ftree%2Fmain&count_bg=%23C83D81&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Hit+Counter&edge_flat=false)](https://hits.seeyoufarm.com)
